@@ -1,0 +1,273 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
+/**
+ * entite
+ *
+ * @ORM\Table(name="entite")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\entiteRepository")
+ */
+class entite
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="designation", type="string", length=255)
+     * @Assert\NotBlank(message="Le champ designation ne peut être vide ! .")
+
+     */
+    private $designation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="siteWeb", type="string", length=255, nullable=true)
+     */
+    private $siteWeb;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="entite",mappedBy="parent", cascade={"remove","persist"})
+     */
+    private $enfants;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="entite",inversedBy="enfants")
+     */
+    private $parent;  
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Publication",mappedBy="entite", cascade={"remove","persist"})
+     */
+    private $publications;
+    
+     
+/**
+ * @ORM\ManyToMany(targetEntity="User", mappedBy="entites", cascade={"remove","persist"})
+ */
+    
+     private $users;
+    
+    
+    public function __toString() {
+        return $this->designation;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->enfants = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set designation
+     *
+     * @param string $designation
+     *
+     * @return entite
+     */
+    public function setDesignation($designation)
+    {
+        $this->designation = $designation;
+
+        return $this;
+    }
+
+    /**
+     * Get designation
+     *
+     * @return string
+     */
+    public function getDesignation()
+    {
+        return $this->designation;
+    }
+
+    /**
+     * Set siteWeb
+     *
+     * @param string $siteWeb
+     *
+     * @return entite
+     */
+    public function setSiteWeb($siteWeb)
+    {
+        $this->siteWeb = $siteWeb;
+
+        return $this;
+    }
+
+    /**
+     * Get siteWeb
+     *
+     * @return string
+     */
+    public function getSiteWeb()
+    {
+        return $this->siteWeb;
+    }
+
+    /**
+     * Add enfant
+     *
+     * @param \AppBundle\Entity\entite $enfant
+     *
+     * @return entite
+     */
+    public function addEnfant(\AppBundle\Entity\entite $enfant)
+    {
+        $this->enfants[] = $enfant;
+
+        return $this;
+    }
+
+    /**
+     * Remove enfant
+     *
+     * @param \AppBundle\Entity\entite $enfant
+     */
+    public function removeEnfant(\AppBundle\Entity\entite $enfant)
+    {
+        $this->enfants->removeElement($enfant);
+    }
+
+    /**
+     * Get enfants
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEnfants()
+    {
+        return $this->enfants;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\entite $parent
+     *
+     * @return entite
+     */
+    public function setParent(\AppBundle\Entity\entite $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\entite
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add publication
+     *
+     * @param \AppBundle\Entity\Publication $publication
+     *
+     * @return entite
+     */
+    public function addPublication(\AppBundle\Entity\Publication $publication)
+    {
+        $this->publications[] = $publication;
+
+        return $this;
+    }
+
+    /**
+     * Remove publication
+     *
+     * @param \AppBundle\Entity\Publication $publication
+     */
+    public function removePublication(\AppBundle\Entity\Publication $publication)
+    {
+        $this->publications->removeElement($publication);
+    }
+
+    /**
+     * Get publications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublications()
+    {
+        return $this->publications;
+    }
+
+    /**
+     * Add user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return entite
+     */
+    public function addUser(\AppBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \AppBundle\Entity\User $user
+     */
+    public function removeUser(\AppBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+    
+
+    /**
+     * Set user
+     *
+     * @param \Acme\Bundle\ProjectBundle\Entity\Project $project
+     * @return ProjectHasMedia
+     */
+    public function setProject(User $user = null)
+    {
+        $this->project = $project;
+        return $this;
+    }
+}

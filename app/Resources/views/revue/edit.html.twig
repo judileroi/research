@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block body %}
+    <h1>Modification de revue</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+    {{ form_end(edit_form) }}
+
+    <ul class="nav navbar-right">
+
+        <li >
+            {{ form_start(delete_form) }}
+
+            <button type="button" class="btn text-danger btn-toolbar  " onclick="if (confirm('Etes vous sûr de vouloir effectuer cette action ?'))
+                        document.form.submit();" > <span class="text-danger text-bold text-uppercase"><i class="glyphicon glyphicon-erase "  ></i> Supprimer</span></button>
+            {{ form_end(delete_form) }}
+        </li>
+    </ul> 
+{% endblock %}

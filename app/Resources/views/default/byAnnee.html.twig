@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    <h3 > Par Année de publication        </h3>
+            <ul>
+                
+                {% for ann in annee%}
+
+                    <li> <a href="{{ path('annee_by_list', { 'id': ann}) }}">{{ann}} [{{ render(controller('AppBundle:Default:byAnneeCount', { 'id': ann })) }}]</a>
+
+
+        {%endfor %}
+                    </ul>
+
+        
+{% endblock %}
+

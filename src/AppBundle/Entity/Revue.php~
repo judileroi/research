@@ -1,0 +1,149 @@
+<?php
+
+namespace AppBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Revue
+ *
+ * @ORM\Table(name="revue")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RevueRepository")
+ */
+class Revue
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="designation", type="string", length=255)
+     * @Assert\NotBlank(message="Le champ designation ne peut être vide ! .")
+     */
+    private $designation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cote", type="string", length=255)
+     * @Assert\NotBlank(message="Le champ Cote ne peut être vide ! .")
+
+     */
+    private $cote;
+
+/**
+ * @ORM\OneToMany(targetEntity="Publication",mappedBy="revue")
+ */
+    private $publications;
+    
+    
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set designation
+     *
+     * @param string $designation
+     *
+     * @return Revue
+     */
+    public function setDesignation($designation)
+    {
+        $this->designation = $designation;
+
+        return $this;
+    }
+
+    /**
+     * Get designation
+     *
+     * @return string
+     */
+    public function getDesignation()
+    {
+        return $this->designation;
+    }
+
+    /**
+     * Set cote
+     *
+     * @param string $cote
+     *
+     * @return Revue
+     */
+    public function setCote($cote)
+    {
+        $this->cote = $cote;
+
+        return $this;
+    }
+
+    /**
+     * Get cote
+     *
+     * @return string
+     */
+    public function getCote()
+    {
+        return $this->cote;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->publications = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add publication
+     *
+     * @param \AppBundle\Entity\Publication $publication
+     *
+     * @return Revue
+     */
+    public function addPublication(\AppBundle\Entity\Publication $publication)
+    {
+        $this->publications[] = $publication;
+
+        return $this;
+    }
+
+    /**
+     * Remove publication
+     *
+     * @param \AppBundle\Entity\Publication $publication
+     */
+    public function removePublication(\AppBundle\Entity\Publication $publication)
+    {
+        $this->publications->removeElement($publication);
+    }
+
+    /**
+     * Get publications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublications()
+    {
+        return $this->publications;
+    }
+    
+    public function __toString() {
+        return$this->designation;
+    }
+}

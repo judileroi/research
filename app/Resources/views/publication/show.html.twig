@@ -1,0 +1,92 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Publication</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ publication.id }}</td>
+            </tr>
+            <tr>
+                <th>Titrefr</th>
+                <td>{{ publication.titreFr }}</td>
+            </tr>
+            <tr>
+                <th>Titreen</th>
+                <td>{{ publication.titreEn }}</td>
+            </tr>
+            <tr>
+                <th>Motcle</th>
+                <td>{{ publication.motCle }}</td>
+            </tr>
+            <tr>
+                <th>Keywords</th>
+                <td>{{ publication.keyWords }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ publication.date }}</td>
+            </tr>
+            <tr>
+                <th>Lieninternet</th>
+                <td>{% if publication.lienInternet %}{{ publication.lienInternet|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Nombredepage</th>
+                <td>{{ publication.nombreDePage }}</td>
+            </tr>
+            <tr>
+                <th>Editionrevue</th>
+                <td>{{ publication.editionRevue }}</td>
+            </tr>
+            <tr>
+                <th>Abstract</th>
+                <td>{{ publication.abstract }}</td>
+            </tr>
+            <tr>
+                <th>Resume</th>
+                <td>{{ publication.resume }}</td>
+            </tr>
+            <tr>
+                <th>Financement</th>
+                <td>{{ publication.financement }}</td>
+            </tr>
+            <tr>
+                <th>Nomprojetrecherche</th>
+                <td>{{ publication.nomProjetRecherche }}</td>
+            </tr>
+            <tr>
+                <th>Cibles</th>
+                <td>{{ publication.cibles }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ publication.commentaire }}</td>
+            </tr>
+            <tr>
+                <th>Fichier</th>
+                <td>{{ publication.fichier }}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ publication.auteur }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_publication_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_publication_edit', { 'id': publication.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

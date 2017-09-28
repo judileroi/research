@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Revue</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ revue.id }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ revue.designation }}</td>
+            </tr>
+            <tr>
+                <th>Cote</th>
+                <td>{{ revue.cote }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_revue_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_revue_edit', { 'id': revue.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

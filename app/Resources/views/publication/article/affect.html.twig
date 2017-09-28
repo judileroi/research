@@ -1,0 +1,90 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+        {% include 'publication/menuAdd.html.twig' %}
+
+    <h1>Affectation d'un article</h1>
+
+    {{ form_start(edit_form) }}
+    
+               
+                
+    <fieldset >
+        <legend>Journal de Publication</legend>
+        <div class="col-sm-6">
+            {{ form_row(edit_form.revue) }} 
+        </div>
+
+        <div class="col-sm-2">
+            {{ form_row(edit_form.revueCategorie) }} 
+        </div>
+
+        <div class="col-sm-2">
+            {{ form_row(edit_form.revueQualite) }} 
+        </div>
+
+        <div class="col-sm-2">
+            {{ form_row(edit_form.revueValeur) }} 
+        </div>
+        
+        <div class="col-sm-2">
+            {{ form_row(edit_form.volumeLivre) }} 
+        </div>
+        <div class="col-sm-2">
+            {{ form_row(edit_form.serieLivre) }} 
+        </div>
+
+        <div class="col-sm-2">
+            {{ form_row(edit_form.debutPageLivre) }} 
+        </div>
+
+        <div class="col-sm-2">
+            {{ form_row(edit_form.finPageLivre) }} 
+        </div>
+        
+        <div class="col-sm-4">
+            {{ form_row(edit_form.doi) }} 
+        </div>
+        
+    </fieldset>
+    {% include 'publication/module/auteurGetName.html.twig' %}
+ 
+    <fieldset >
+        <legend>Détails sur l'article</legend>
+        <div class="col-sm-12">
+            {{ form_row(edit_form.titreFr) }} 
+        </div>
+
+{#        <div class="col-sm-6">
+            {{ form_row(edit_form.auteur) }} 
+        </div>#}
+
+        <div class="col-sm-6">
+            {{ form_row(edit_form.motCle) }} 
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_row(edit_form.resume) }} 
+        </div>
+        
+        <div class="col-sm-3">
+            {{ form_row(edit_form.datePubli) }} 
+        </div>
+
+             
+    </fieldset>
+        
+        {{ form_widget(edit_form) }}
+
+    {{ form_end(edit_form) }}
+
+
+            
+
+        <script>
+            
+            
+            $('input,textarea,select').attr('disabled', true);
+        </script>
+
+{% endblock %}

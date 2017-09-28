@@ -1,0 +1,90 @@
+
+
+<div id='auteur' >
+    <div class="col-sm-3 ">
+        <div class="form-group"><label class="control-label" for="article_nom_auteurs">Nom (*)</label><input autocomplete="off"   class="form-control ui-autocomplete-input searchAuteur" value="" type="text"><span class="ui-helper-hidden-accessible" aria-live="polite" role="status"></span></div> 
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group"><label class="control-label" for="article_revue">Prénoms (*)</label><input autocomplete="off"   class="form-control ui-autocomplete-input" value="" type="text"><span class="ui-helper-hidden-accessible" aria-live="polite" role="status"></span></div> 
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group"><label class="control-label" for="article_revue">Email (*)</label><input autocomplete="off"   class="form-control ui-autocomplete-input" value="" type="text"><span class="ui-helper-hidden-accessible" aria-live="polite" role="status"></span></div> 
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group"><label class="control-label" for="article_revue">Fonction (*)</label><select style="width:145px"  class="mb"><option value="author">Author, co-author</option><option value="critic">Critical editor</option><option value="translator">Translator</option><option value="other">Other collaborator</option></select></div> 
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group"><label class="control-label" for="article_revue">Affiliation (*)</label><input autocomplete="off"   class="form-control ui-autocomplete-input" value="" type="text"><span class="ui-helper-hidden-accessible" aria-live="polite" role="status"></span></div> 
+    </div>
+
+</div>
+
+
+
+
+<div id='ligneauteur' style="display: none" >
+    <div class="col-sm-3 ">
+        <div class="form-group"><label class="control-label" for="article_nom_auteurs">Nom (*)</label><input autocomplete="off"   class="form-control ui-autocomplete-input searchAuteur" value="" type="text"><span class="ui-helper-hidden-accessible" aria-live="polite" role="status"></span></div> 
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group"><label class="control-label" for="article_revue">Prénoms (*)</label><input autocomplete="off"   class="form-control ui-autocomplete-input" value="" type="text"><span class="ui-helper-hidden-accessible" aria-live="polite" role="status"></span></div> 
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group"><label class="control-label" for="article_revue">Email (*)</label><input autocomplete="off"   class="form-control ui-autocomplete-input" value="" type="text"><span class="ui-helper-hidden-accessible" aria-live="polite" role="status"></span></div> 
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group"><label class="control-label" for="article_revue">Fonction (*)</label><select style="width:145px"  class="mb"><option value="author">Author, co-author</option><option value="critic">Critical editor</option><option value="translator">Translator</option><option value="other">Other collaborator</option></select></div> 
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group"><label class="control-label" for="article_revue">Affiliation (*)</label><input autocomplete="off"   class="form-control ui-autocomplete-input" value="" type="text"><span class="ui-helper-hidden-accessible" aria-live="polite" role="status"></span></div> 
+    </div>
+    
+  
+</div>
+
+
+<div class="autoscript">
+ <style>
+    .ui-autocomplete-loading {
+        background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+
+        $("#addAuteur").click(function () {
+            $("#auteur").append($("#ligneauteur").html());
+
+        });
+
+
+        $("input").autocomplete({
+            source: "{{ path('auteurs_autocomplete') }}",
+            minLength: 2,
+            select: function (event, ui) {
+                alert(ui.item ?
+                        "Selected: " + ui.item.value + " aka " + ui.item.id :
+                        "Nothing selected, input was " + this.value);
+            }
+        });
+
+
+
+    });
+
+
+</script></div>
+
+<div class="col-sm-12">
+    <button id="addAuteur" class="btn text-bold navbar-right btn-primary" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Ajouter un autre auteur </button>
+</div>
+
+ 

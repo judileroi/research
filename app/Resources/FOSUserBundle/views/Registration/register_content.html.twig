@@ -1,0 +1,48 @@
+<div  class="well" id="dialog" title="Problème avec votre mail professionnel uac.bj">
+    <h1 style="font-size: 18px;font-weight: bold; " class="text-warning ">Bonjour Monsieur/Madame. Pour votre inscription sur la plateforme des publications scientifiques vous avez besoin de votre email professionnel uac.bj.</h1>
+    <p style="font-size: 15px;">Pour obtenir votre email professionnel uac.bj, Veuillez bien vous rapprocher du Service informatique de l'Université logé au Bureau 4 du Rectorat Annexe.</p>
+</div>
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+{{ form_widget(form) }}
+{#    <div>
+        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+    </div>#}
+{{ form_end(form) }}
+
+<script>
+    $(document).ready(function () {
+
+        $('#fos_user_registration_form_email').blur(function () {
+
+            var email = $('#fos_user_registration_form_email').val();
+
+            if (email != "") {
+                
+                var tab = email.split('@');
+                var tab2 = tab[1].split('.');
+                var domaine=tab2[tab2.length -1]+tab2[tab2.length -2];
+              
+                if(domaine!='bjuac'){
+                    
+                $("#dialog").dialog(
+                        {
+                            resizable: false,
+                            height: 400,
+                            width: 400,
+                            modal: true,                        }
+
+                );
+        
+        $('#fos_user_registration_form_email').val("");
+            }
+        
+        }
+        });
+
+    });
+
+</script>
+

@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    
+                <h3 > Par discipline          </h3>
+
+    <ul>
+        {% for discipline in disciplines%}
+
+            <h4 class="noborder"> {{discipline.designation}}            </h4>
+
+
+                <ul>
+
+                    {% for disc in discipline.enfants%}
+
+                        <li> <a href="{{ path('discipline_by_list', { 'id': disc.id }) }}">{{disc.designation}} [{{disc.publications|length}}]</a></li>
+
+                        {%endfor %}
+
+
+                </ul>
+
+
+        {%endfor %}
+    </ul>
+{% endblock %}
+
+

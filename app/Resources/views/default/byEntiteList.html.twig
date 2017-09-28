@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+
+
+
+{% block body %}
+
+
+    <h1>Liste des Publications[ {{ entite.designation }}]</h1>
+
+
+    <div class="list-group">
+        {% for publication in publications %}
+
+
+            <div  class="list-group-item">
+                {#                                                <p class="list-group-item-text" style="float: right">
+                                    <img style="border-radius: 35px;width: 50px; margin-left: 20px;" src=" {% if  publication.user.avatar %} {{ asset('uploads/avatar/' ~  publication.user.avatar) }} {%else%} {{ asset('images/person-flat.png') }} {%endif%}"><br>
+                
+                                    <a href="{{ path('auteur_by_list', { 'id': publication.user.id}) }}">  {{ publication.user.nom ~' '~ publication.user.prenom }}</a>
+                                </p>#}
+                <h4 class="list-group-item-heading noborder"><a href="{{ path('publication_id', { 'id': publication.id,'type':publication.type }) }}">{{ publication.titreFr }} </a>    </h4>
+                <p class="list-group-item-text">
+                    {% for ligneaut in publication.ligneauteurs %}
+
+                        <a href="{{ path('auteur_by_list_ALL', { 'id': ligneaut.auteur.id}) }}"> {{ ligneaut.auteur.nom }} {{ ligneaut.auteur.prenoms }} [{{ ligneaut.ordre }}]</a>, 
+                    {%endfor%}
+
+                </p>
+                <p class="list-group-item-text">{{ publication.resume|slice(0, 150)}} <a href="{{ path('publication_id', { 'id': publication.id ,'type':publication.type}) }}">[...] </a></p>
+                <p class="list-group-item-text">{{ publication.type }}, Ajoutée le  {{ publication.date|date('d/m/Y H:i') }} </p>
+
+            </div>         
+
+        {% endfor %}
+
+        <div class="navigation">
+            {{ knp_pagination_render(publications) }}
+        </div>
+
+    </div>     
+
+
+
+
+{% endblock %}

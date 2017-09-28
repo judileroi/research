@@ -1,0 +1,184 @@
+<fieldset>
+    <legend>Les auteurs et Co-Auteurs</legend>
+
+    {# Modifié par Ignace AZONHOUMON 19/07/2017 #}
+    <div id="zoneauteur">
+        {% for i in 1..nbLigneAuteur %}
+            <div class='row auteur' style="color: #7D7878; border-left: 2px solid#9d9d9d; margin-bottom: 15px; ">
+                <h3 style="text-align: center" class="auteurBlocTitre">Auteur n° {{ i }} de la publication {% if i==1 %} (*) {% endif %}</h3>
+                {# Ajouté par Ignace AZONHOUMON 19/07/2017 #}
+                <div class="col-sm-12">
+                    <button class="btn btn-danger pull-right btn-group-sm supprimer_auteur" type="button" title="Supprimer l'auteur"
+                            style="color: #FFF"> X
+                    </button>
+                </div>
+                {# FIN #}
+                <div class="col-sm-4 form-group">
+                    <label>Nom(*)</label>
+                    <input type="text" name="nomAuteur[]"
+                           value="{% if nom is not empty %}{{ nom[i-1] }}{% endif %}" id='nomAuteur{{ i }}'
+                           class="form-control nomAuteur">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                    <label>Prenom(*)</label>
+
+                    <input type="text" name="prenomAuteur[]" value="{% if prenom is not empty %}{{ prenom[i-1] }}{% endif %}" id='prenomAuteur{{ i }}'
+                           class="prenomAuteur form-control">
+                </div>
+
+
+                <div class="col-sm-4 form-group">
+                    <label>Email(*)</label>
+
+                    <input type="text" name="emailAuteur[]" value="{% if email is not empty %}{{ email[i-1] }}{% endif %}" id='emailAuteur{{ i }}'
+                           class="emailAuteur form-control">
+                </div>
+
+                <div class="col-sm-8 form-group">
+                    <label>Entité d'affiliation(*)</label>
+                    <input type="text" name="entiteAuteur[]" value="{% if affiliation is not empty %}{{ affiliation[i-1] }}{% endif %}" id='entiteAuteur{{ i }}'
+                           class="entiteAuteur form-control">
+                </div>
+
+                <div class="col-sm-2 form-group">
+                    <label>Type(*)</label>
+
+                    <select name="typeAuteur[]" class="form-control obligatoire">
+                        <option value="1">Auteur, co-auteur</option>
+                        <option value="2">Critical editor</option>
+                        <option value="3">Traducteur</option>
+                        <option value="4">Autre Collaborateur</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-2 form-group">
+                    <label>Ordre(*)</label>
+
+                    <select name="ordreAuteur[]" class="form-control obligatoire">
+                        <option value="">---</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+
+                    </select>
+                </div>
+
+
+            </div>
+        {% endfor %}
+    </div>
+    <button type="button" id="addauteur" class="btn btn-primary"
+            style="color: #FFF"><i
+                class="glyphicon glyphicon-plus-sign"></i> Ajouter un Co-auteur
+    </button>
+    <br><br>
+</fieldset>
+
+
+<script>
+
+
+    function genereAuteurOption(index) {
+
+        var options = {
+            url: "{{ path('listeAuteurs') }}",
+            getValue: function (element) {
+                return element.nom;
+            },
+            template: {
+                type: "custom",
+                method: function (value, item) {
+                    return value + ' - ' + item.prenoms + ' (' + item.affiliation + ')';
+                }
+            },
+            list: {
+                onSelectItemEvent: function () {
+                    var prenom = $("#nomAuteur" + index).getSelectedItemData().prenoms;
+                    $("#prenomAuteur" + index).val($("#nomAuteur" + index).getSelectedItemData().prenoms);
+                    $("#emailAuteur" + index).val($("#nomAuteur" + index).getSelectedItemData().email);
+                    $("#entiteAuteur" + index).val($("#nomAuteur" + index).getSelectedItemData().affiliation);
+
+                    if ($("#prenomAuteur" + index).val()) {
+
+                        $("#prenomAuteur" + index).addClass('disabled');
+                    }
+                },
+                match: {
+                    enabled: true
+                }
+            }
+        };
+
+        return options;
+
+    }
+
+
+    $(document).ready(function () {
+
+        $("#nomAuteur1").easyAutocomplete(genereAuteurOption(1));
+        $(document).ready(function () {
+
+            $("#nomAuteur1").easyAutocomplete(genereAuteurOption(1));
+            $("#nomAuteur2").easyAutocomplete(genereAuteurOption(2));
+            $("#nomAuteur3").easyAutocomplete(genereAuteurOption(3));
+            $("#nomAuteur4").easyAutocomplete(genereAuteurOption(4));
+            $("#nomAuteur5").easyAutocomplete(genereAuteurOption(5));
+            $("#nomAuteur6").easyAutocomplete(genereAuteurOption(6));
+            $("#nomAuteur7").easyAutocomplete(genereAuteurOption(7));
+            $("#nomAuteur8").easyAutocomplete(genereAuteurOption(8));
+            $("#nomAuteur9").easyAutocomplete(genereAuteurOption(9));
+            $("#nomAuteur10").easyAutocomplete(genereAuteurOption(10));
+            $("#nomAuteur11").easyAutocomplete(genereAuteurOption(11));
+            $("#nomAuteur12").easyAutocomplete(genereAuteurOption(12));
+
+
+
+            var optionstitreFr = {
+                url: "{{ path('listeTitre') }}",
+                getValue: "titre",
+                list: {
+                    match: {
+                        enabled: true
+                    }
+                }
+            };
+
+            var optionsRevue = {
+                url: "{{ path('listeJournal') }}",
+                getValue: "journal",
+                list: {
+                    match: {
+                        enabled: true
+                    }
+                }
+            };
+
+            $("#article_revue").easyAutocomplete(optionsRevue);
+
+            $("#article_titreFr").easyAutocomplete(optionstitreFr);
+
+            $("#livre_titreFr").easyAutocomplete(optionstitreFr);
+
+            $("#poster_titreFr").easyAutocomplete(optionstitreFr);
+            $("#projet_titreFr").easyAutocomplete(optionstitreFr);
+            $("#communication_titreFr").easyAutocomplete(optionstitreFr);
+            $("#brevet_titreFr").easyAutocomplete(optionstitreFr);
+
+
+        });
+
+    });
+
+
+</script>

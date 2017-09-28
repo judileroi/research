@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    <h3 > Par Entité de publications         </h3>
+
+    <ul>
+        {% for entite in entites%}
+
+            <h4 class="noborder"> {{entite.designation}}            </h4>
+
+
+            <ul>
+
+                {% for entit in entite.enfants%}
+
+                    <li> <a href="{{ path('entite_by_list', { 'id': entit.id }) }}">{{entit.designation}} [{{entit.publications|length}}]</a></li>
+
+                    {%endfor %}
+
+
+            </ul>
+
+
+        {%endfor %}
+    </ul>
+{% endblock %}
+
+

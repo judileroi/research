@@ -1,0 +1,194 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+<h3> <i class="glyphicon glyphicon-plus-sign"></i> Configuration des Entêtes d'u Fichier Excel</h3>
+
+    <div class="row bs-wizard" style="border-bottom:0;">
+
+        <div class="col-xs-4 bs-wizard-step complete">
+            <div class="text-center bs-wizard-stepnum">Importation de Fichier</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="{{path('importFichierArticles')}}" class="bs-wizard-dot"></a>
+            <div class="bs-wizard-info text-center">Transférer un fichier au format Excel. Votre fichier doit avoir  les Champs <b>Titre, Journal, Auteurs, Mots Clés, Résumé et Année de Publication</b></div>
+        </div>
+
+
+
+        <div class="col-xs-4 bs-wizard-step active"><!-- complete -->
+            <div class="text-center bs-wizard-stepnum">Configuration du Fichier</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="{{path('paramFichierArticles')}}" class="bs-wizard-dot"></a>
+            <div class="bs-wizard-info text-center">Fichier importé! Veuillez à présent renseigner les colonnes d'entête qui correspondent à chaque rubrique  <b>Titre, Journal, Auteurs, Mots Clés, Résumé et Année de Publication</b></div>
+        </div>
+
+        <div class="col-xs-4 bs-wizard-step disabled"><!-- active -->
+            <div class="text-center bs-wizard-stepnum">Confirmation</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+            <div class="bs-wizard-info text-center"> Confirmation!</strong> Les articles ont été ajoutés avec succès !</div>
+        </div>
+    </div>
+
+    <h1>Paramétrage de l'importation de la liste d'articles </h1>
+    <div class="alert alert-success" role="alert">
+        <strong>Transfert réussi !</strong> Transfert effectué avec succès. Veuillez à présent renseigner les champs qui correspondent
+        à chaque entête de votre fichier !</div>
+    <form name="article" method="post" enctype="multipart/form-data">
+
+        <div class="form-group col-sm-6 ">
+            <label>Colonne correspondant au Journal :</label>
+            <select class="form-control " required="" name="journal">
+                <option value="">---Selectionner---</option>
+                {% set i=1 %}
+                {% for fileRow in fileTab if i==1 %}
+                {% set j=0 %}
+
+                    {% for fileCol in fileTab %}
+
+                        <option value="{{j}}">{{fileCol}}</option>
+                    {% set j=j+1 %}
+
+                    {%endfor %}
+
+                    {% set i=i+1 %}
+
+                {%endfor %}
+
+
+            </select>
+        </div>
+
+
+        <div class="form-group col-sm-6 ">
+            <label>Colonne correspondant au titre de l'Article :</label>
+            <select class="form-control " required="" name="titre">
+                <option value="">---Selectionner---</option>
+
+                {% set i=1 %}
+                {% for fileRow in fileTab if i==1 %}
+                {% set j=0 %}
+
+                    {% for fileCol in fileTab %}
+
+                        <option value="{{j}}">{{fileCol}}</option>
+                    {% set j=j+1 %}
+
+                    {%endfor %}
+
+                    {% set i=i+1 %}
+
+                {%endfor %}
+
+
+            </select>
+        </div>
+
+
+        <div class="form-group col-sm-6 ">
+            <label>Colonne correspondant aux auteurs :</label>
+            <select class="form-control " required="" name="auteurs">
+                <option value="">---Selectionner---</option>
+
+                {% set i=1 %}
+                {% for fileRow in fileTab if i==1 %}
+                {% set j=0 %}
+
+                    {% for fileCol in fileTab %}
+
+                        <option value="{{j}}">{{fileCol}}</option>
+                    {% set j=j+1 %}
+
+                    {%endfor %}
+
+                    {% set i=i+1 %}
+
+                {%endfor %}
+
+
+            </select>
+        </div>    
+
+
+        <div class="form-group col-sm-6 ">
+            <label>Colonne correspondant aux mots clés :</label>
+            <select class="form-control " required="" name="motsCles">
+                <option value="">---Selectionner---</option>
+
+                {% set i=1 %}
+                {% for fileRow in fileTab if i==1 %}
+                {% set j=0 %}
+
+                    {% for fileCol in fileTab %}
+
+                        <option value="{{j}}">{{fileCol}}</option>
+                    {% set j=j+1 %}
+
+                    {%endfor %}
+
+                    {% set i=i+1 %}
+
+                {%endfor %}
+
+
+            </select>
+        </div>     
+
+
+        <div class="form-group col-sm-6 ">
+            <label>Colonne correspondant au résumé :</label>
+            <select class="form-control " required="" name="resume">
+                <option value="">---Selectionner---</option>
+
+                {% set i=1 %}
+                {% for fileRow in fileTab if i==1 %}
+                {% set j=0 %}
+
+                    {% for fileCol in fileTab %}
+
+                        <option value="{{j}}">{{fileCol}}</option>
+                    {% set j=j+1 %}
+
+                    {%endfor %}
+
+                    {% set i=i+1 %}
+
+                {%endfor %}
+
+
+            </select>
+        </div>
+
+
+        <div class="form-group col-sm-6 ">
+            <label>Colonne correspondant à l'année de publication :</label>
+            <select class="form-control " required="" name="annee">
+                <option value="">---Selectionner---</option>
+
+                {% set i=1 %}
+                {% for fileRow in fileTab if i==1 %}
+                {% set j=0 %}
+
+                    {% for fileCol in fileTab %}
+
+                        <option value="{{j}}">{{fileCol}}</option>
+                    {% set j=j+1 %}
+
+                    {%endfor %}
+
+                    {% set i=i+1 %}
+
+                {%endfor %}
+
+
+            </select>
+        </div>  
+        <div class="form-group  ">
+            <button type="submit"  name="importer" class="btn-default btn-lg btn btn-block">Importer le fichier</button>       
+        </div>
+    </div>  
+
+</form>
+
+{% endblock %}
+
+

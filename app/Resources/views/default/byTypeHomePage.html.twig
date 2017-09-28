@@ -1,0 +1,7 @@
+<ul>
+    {% for type in types%}
+        <li> <a href="{{ path('type_by_list', { 'id': type.id }) }}">{{type.designation}}  ({{ render(controller('AppBundle:Default:byTypeCount', { 'id': type.id })) }})</a></li>
+    {%endfor %}
+</ul>
+
+

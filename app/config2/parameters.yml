@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: publication
+    database_user: adminuac
+    database_password: MyDbadmin
+    mailer_transport: smtp
+    mailer_host: smtp.uac.bj
+    mailer_user: judicael.tandjiekpon
+    mailer_password: judileroi
+    mailer_port: 587
+    secret: ThisTokenIsNotSoSecretChangeIt

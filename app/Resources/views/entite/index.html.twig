@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des entités de l'UAC</h1>
+    <ul class="nav nav-pills ">
+        <li>
+            <a href="{{ path('admin_entite_new') }}"><i class="glyphicon glyphicon-plus-sign"  ></i> Nouvelle entité de l'UAC</a>
+        </li>
+    </ul>
+
+
+    <ul>
+        {% for entite in entites%}
+
+            <h4 class="noborder"><a href="{{ path('admin_entite_edit', { 'id': entite.id }) }}" title="Modifier ou Supprimer"> {{entite.designation}}     </a>       </h4>
+
+
+            <ul>
+
+                {% for entit in entite.enfants%}
+
+                    <li> <a href="{{ path('admin_entite_edit', { 'id': entit.id }) }}" title="Modifier ou Supprimer">{{entit.designation}} [{{entit.publications|length}}]</li>
+
+                    {%endfor %}
+
+
+            </ul>
+
+
+        {%endfor %}
+    </ul>
+{% endblock %}

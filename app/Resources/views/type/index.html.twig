@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des Types de publications scientifiques</h1>
+    <ul class="nav nav-pills ">
+        <li>
+            <a href="{{ path('admin_type_new') }}"><i class="glyphicon glyphicon-plus-sign"  ></i> Nouveau type de publication</a>
+        </li>
+    </ul>
+
+    <ul>
+        {% for type in types%}
+
+            <li> <h4 class="noborder"> <a href="{{ path('admin_type_edit', { 'id': type.id }) }}" title="Modifier">{{type.designation}}     </a></h4>      </li>
+
+
+
+        {%endfor %}
+    </ul>         
+            
+{% endblock %}

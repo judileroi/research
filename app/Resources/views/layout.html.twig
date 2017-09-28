@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Bibliographie des Enseignants et Chercheurs de l'UAC</title>
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet"/>
+    <link href="{{ asset('css/dataTables.tableTools.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/themes/base/jquery.ui.all.css') }}">
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <link href="{{ asset('css/easy-autocomplete.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('js/jquery.easy-autocomplete.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/jquery-ui.custom.js') }}" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/dataTables.tableTools.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/jquery.ui.dialog.js') }}" type="text/javascript"></script>
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row banniere">
+
+        <div class="col-sm-8 logo">
+
+            <img src="{{ asset('images/logo2.png') }}" style="height: 100px;"/>
+
+        </div>
+
+        <div class="col-sm-4 outil">
+
+            <ul class="pull-right">
+                <li><a href="http://uac.bj"> <i class="glyphicon glyphicon-link"></i>Université d'Abomey-Calavi</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row menu">
+
+        <div class="col-lg-12">
+
+            <ul class="nav nav-pills ">
+
+                <li><a href="{{ path('homepage') }}"> <i class="glyphicon glyphicon-home"></i></a></li>
+
+
+                <li><a href="http://uac.bj"><i class="glyphicon glyphicon-link"></i> Uac.bj </a></li>
+                <li><a href="contact.php">Contactez nous </a></li>
+
+                <ul class="nav nav-pills navbar-right">
+
+                    <li><a href="{{ path('fos_user_registration_register') }}"><i class="glyphicon glyphicon-user"></i>
+                            S'inscrire </a></li>
+                    <li><a href="{{ path('fos_user_security_login') }}"><i class="glyphicon glyphicon-user"></i> Se
+                            connecter </a></li>
+
+                </ul>
+
+            </ul>
+
+
+        </div>
+    </div>
+
+
+    <div class="row filariane">
+
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                {% if app.request.headers.get('referer') %}
+                    <li><a href="{{ path('homepage') }}">Accueil</a></li>
+
+
+                    <li><a href="{{ app.request.headers.get('referer') }}"><< Retour à la page précédente </a></li>
+
+                {% endif %}
+            </ol>
+
+        </div>
+    </div>
+
+
+    <div class="row ">
+
+        <div class="col-md-2 col-lg-2 col-sm-3 left ">
+
+            <h3>Feuilleter BEC-UAC par</h3>
+            <ul>
+                <li><a href="{{ path('entite_by') }}">Entité</a></li>
+                <li><a href="{{ path('auteur_by') }}">Auteur</a></li>
+                {#                        <li><a href="#">Titre</a></li>
+                #}
+
+                <li><a href="{{ path('annee_by') }}">Année de publication</a></li>
+                <li><a href="{{ path('type_by') }}">Type de document</a></li>
+                <li><a href="{{ path('discipline_by') }}">Discipline</a></li>
+            </ul>
+
+
+            <h3>Publications par type</h3>
+
+            {{ render(controller('AppBundle:Default:byTypehomepage')) }}
+
+            <h3>Qualité des articles</h3>
+
+            <ul>
+                <li>Impact
+                    Factor({{ render(controller('AppBundle:Default:qualiteArticle',{'qualite':'Impact Factor'})) }})
+                </li>
+                <li>Indexé({{ render(controller('AppBundle:Default:qualiteArticle',{'qualite':'Indexé'})) }})</li>
+                <li>Comité de
+                    lecture({{ render(controller('AppBundle:Default:qualiteArticle',{'qualite':'Comité de lecture'})) }}
+                    )
+                </li>
+                <li>Autre({{ render(controller('AppBundle:Default:qualiteArticle',{'qualite':'Autre'})) }})</li>
+
+            </ul>
+            <h3>Liens utiles</h3>
+
+            <ul>
+                <li><a href="{{ asset('uploads/bec_manuel.pdf') }}"><b>Guide d'Utilisation</b></a></li>
+                <li><a href="http://uac.bj">Université d'Abomey-Calavi</a></li>
+                <li><a href="https://www.researchgate.net/">Researchgate</a></li>
+            </ul>
+
+
+            <ul>
+                <li><a href="http://uac.bj">BEC-UAC est un projet de l'UAC</a></li>
+                {#                        <li><a href=""><img src="{{ asset('images/logoweb.png')}}"></a></li>
+                #}                    </ul>
+
+
+        </div>
+
+        <div class="col-md-8 col-lg-8 col-sm-6  middle">
+
+
+            {% block body %}{% endblock %}
+
+
+        </div>
+
+
+        <div class="col-md-2 col-lg-2 col-sm-3  right">
+
+            {% if  is_granted('ROLE_USER') %}
+
+
+                <h3><i class="glyphicon glyphicon-user"></i> Hi {{ app.user.nom }} !</h3>
+
+                <ul>
+                    <li style="list-style: none"><a href="{{ path('fos_user_profile_edit') }}"> <img
+                                    style="border-radius: 35px; margin-bottom: 25px; width: 50px; margin-left: 0px; margin-bottom: 3px;"
+                                    src=" {% if app.user.avatar %} {{ asset('uploads/avatar/' ~ app.user.avatar) }} {% else %} {{ asset('images/person-flat.png') }} {% endif %}"
+                                    title="Modifier mon profil"></a></li>
+
+                    <li><a href="{{ path('homepage') }}"><i class="glyphicon glyphicon-home"></i> Accueil</a></li>
+                    <li><a href="{{ path('fos_user_profile_edit') }}"> <i class="glyphicon glyphicon-user"></i> Mon
+                            profil</a></li>
+                    <li><a href="{{ path('fos_user_security_logout') }}"><i
+                                    class="glyphicon glyphicon-log-out text-danger"></i> Déconnexion </a></li>
+                </ul>
+
+            {% else %}
+
+                {{ render(controller('AppBundle:Default:statHomePage')) }}
+            {% endif %}
+
+
+
+            {% if  is_granted('ROLE_ADMIN') %}
+                <h3>Paramètres</h3>
+
+                <ul>
+                    <li><a href="{{ path('admin_entite_index') }}">Entités de l'UAC</a></li>
+                    {#                        <li><a href="{{ path('admin_revue_index') }}">Revues de publication</a></li>
+                    #}
+                    <li><a href="{{ path('admin_discipline_index') }}">Disciplines Scientifiques</a></li>
+                    <li><a href="{{ path('admin_type_index') }}">Type de Publication</a></li>
+                </ul>
+
+            {% endif %}
+
+            {% if  is_granted('ROLE_ENSEIGNANT') %}
+
+                <h3><i class="glyphicon glyphicon-education"></i> Mes Publications</h3>
+
+
+                <ul>
+                    <li><a href="{{ path('admin_publication_index_my',{'type':'Article'}) }}">Articles</a></li>
+                    <li><a href="{{ path('admin_publication_index_my',{'type':'Brevet'}) }}">Brevets</a></li>
+                    <li><a href="{{ path('admin_publication_index_my',{'type':'Communication'}) }}">Communications</a>
+                    <li><a href="{{ path('admin_publication_index_my',{'type':'DocumentValorisation'}) }}">Document de valorisation</a>
+                    <li><a href="{{ path('admin_publication_index_my',{'type':'DocumentVulgarisation'}) }}">Document de vulgarisation</a></li>
+                    <li><a href="{{ path('admin_publication_index_my',{'type':'FicheTechnique'}) }}">Fiche Technique</a></li>
+                    <li><a href="{{ path('admin_publication_index_my',{'type':'Livre'}) }}">Livre</a></li>
+                    <li><a href="{{ path('admin_publication_index_my',{'type':'Poster'}) }}">Posters</a></li>
+                    <li><a href="{{ path('admin_publication_index_my',{'type':'Projet'}) }}">Projets</a></li>
+
+                </ul>
+
+            {% endif %}
+
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+        </div>
+    </div>
+
+    <div class="row footer">
+
+        <div class="col-lg-12 text-center text-danger">
+
+            Conception : Service Informatique de l'Université d'Abomey-Calavi ( webmaster@uac.bj)
+        </div>
+    </div>
+
+</div>
+
+
+<div style="display: none" id="dialog" title="Problème avec votre mail professionnel uac.bj">
+    <h1 style="font-size: 18px;font-weight: bold; " class="text-warning ">Bonjour Monsieur/Madame. Pour votre
+        inscription sur la plateforme des publications scientifiques vous avez besoin de votre email professionnel
+        uac.bj.</h1>
+
+    <p style="font-size: 15px;">Pour obtenir votre email professionnel uac.bj, Veuillez bien vous rapprocher du Service
+        informatique de l'Université logé au Bureau 4 du Rectorat Annexe.</p>
+</div>
+
+
+</body>
+
+<script>
+
+    $('.tableP').dataTable(
+            {
+                paging: false,
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "http://localhost/abms/web/swf/copy_csv_xls_pdf.swf"
+                },
+                'sPaginationType': 'full_numbers',
+                "oLanguage": {
+                    "sLengthMenu": "Recherche _MENU_ Enregistrements par page",
+                    "sZeroRecords": "Aucun Enregistrement...!",
+                    "sInfo": "Affichage _START_ &agrave; _END_ de _TOTAL_ Enregistrements au Total",
+                    "sInfoEmpty": "Affichage 0 &agrave; 0 de 0 Enregistrements",
+                    "sInfoFiltered": "(filtered from _MAX_ total records)",
+                    "sSearch": "Rechercher:",
+                    "oPaginate": {
+                        "sFirst": "Premier",
+                        "sLast": "Dernier",
+                        "sPrevious": "Precedent",
+                        "sNext": "Suivant"
+                    },
+                    "bSortClasses": false
+                }
+            }
+    );
+
+    $('selectIns').select2();
+    function genereAuteurOption(index) {
+
+        var options = {
+            url: "{{ path('listeAuteurs') }}",
+            getValue: function (element) {
+                return element.nom;
+            },
+            template: {
+                type: "custom",
+                method: function (value, item) {
+                    return value + ' - ' + item.prenoms + ' (' + item.affiliation + ')';
+                }
+            },
+            list: {
+                onSelectItemEvent: function () {
+                    var prenom = $("#nomAuteur" + index).getSelectedItemData().prenoms;
+                    $("#prenomAuteur" + index).val($("#nomAuteur" + index).getSelectedItemData().prenoms);
+                    $("#emailAuteur" + index).val($("#nomAuteur" + index).getSelectedItemData().email);
+                    $("#entiteAuteur" + index).val($("#nomAuteur" + index).getSelectedItemData().affiliation);
+
+                    if ($("#prenomAuteur" + index).val() != "") {
+
+                        $("#prenomAuteur" + index).addClass('disabled');
+                    }
+                },
+                match: {
+                    enabled: true
+                }
+            }
+        };
+
+        return options;
+
+    }
+
+
+    $(document).ready(function () {
+        $('.valider').each(function (index, elt) {
+
+            $(elt).click(function () {
+
+                var cpt = 0;
+                $('.obligatoire').each(function (index, elt) {
+
+                    if ($(elt).val() == '') {
+
+                        $(elt).addClass('border-danger');
+                        cpt++;
+                    } else {
+                        $(elt).addClass('border-success');
+                    }
+
+
+                });
+
+                if (cpt == 0)
+                    $("form").submit();
+
+            });
+
+
+            var cpt = 0;
+            $('.form-control').each(function (index, elt) {
+
+                $(elt).blur(function () {
+                    if ($(elt).val() == '') {
+
+                        $(elt).addClass('border-danger');
+                        cpt++;
+                    } else {
+                        $(elt).addClass('border-success');
+                    }
+
+                });
+
+
+                $(elt).change(function () {
+                    if ($(elt).val() == '') {
+
+                        $(elt).addClass('border-danger');
+                        cpt++;
+                    } else {
+                        $(elt).addClass('border-success');
+                    }
+
+                });
+            });
+
+
+        });
+
+        // Connaître le nombre délements enfant de la zone auteur
+        // Modifié par Ignace AZONHOUMON le 19/07/2017
+        var size = $('#zoneauteur > .auteur').length;
+        var indexAuteur = size + 1;
+        var auteurElem = $('.auteur').last().wrap('<span/>').parent().clone();
+        var auteur = auteurElem.html();
+        var parent = $('#zoneauteur');
+        $('#addauteur').click(function () {
+            auteurElem.find('.nomAuteur').attr('id', 'nomAuteur' + indexAuteur);
+            auteurElem.find('.prenomAuteur').attr('id', 'prenomAuteur' + indexAuteur);
+            auteurElem.find('.entiteAuteur').attr('id', 'entiteAuteur' + indexAuteur);
+            auteurElem.find('.emailAuteur').attr('id', 'emailAuteur' + indexAuteur);
+            auteurElem.find('.auteurBlocTitre').text("Auteur n° de la publication");
+
+            var auteur = auteurElem.html();
+            parent.append(auteur);
+            $("#nomAuteur" + indexAuteur).easyAutocomplete(genereAuteurOption(indexAuteur));
+
+            // Ajouté par Ignace AZONHOUMON 19/07/2017
+            // A la dernière rangée d'auteur entrée, mettre l'action sur le bouton supprimé
+            $('.auteur').last().find('.supprimer_auteur').click(function (e) {
+                e.preventDefault();
+
+                var size = $('#zoneauteur > .auteur').length + 1;
+
+                if(size > 1){
+                    // Enlever le parent qui est la rangée d'auteur
+                    $(this).closest('.auteur').remove();
+                }
+
+            });
+            // FIN
+
+            indexAuteur++;
+
+        });
+
+    });
+
+
+</script>
+
+</html>

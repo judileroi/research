@@ -1,0 +1,244 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    {% include 'publication/menuAdd.html.twig' %}
+
+    <h1>Soumission d'un article</h1>
+
+    {{ form_start(form) }}
+    <fieldset >
+        <legend>Informations sur l'article</legend>
+        <div class="row" style=" border-left: 2px solid#9d9d9d; margin-bottom: 15px; ">
+
+            <div class="col-sm-12">
+                {{ form_row(form.titreFr,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+
+            <div class="col-sm-6">
+                {{ form_row(form.motCle,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+            <div class="col-sm-6">
+                {{ form_row(form.resume,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+            <div class="col-sm-3">
+                {{ form_row(form.datePubli,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset >
+        <legend>Journal de Publication</legend>
+        <div class="row" style=" border-left: 2px solid#9d9d9d; margin-bottom: 15px; ">
+
+            <div class="col-sm-6">
+                {{ form_row(form.revue,{'attr':{'class':'obligatoire','value':''}}) }} 
+            </div>
+
+            <div class="col-sm-2">
+                {{ form_row(form.revueCategorie,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+            <div class="col-sm-2">
+                {{ form_row(form.revueQualite,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+            <div class="col-sm-2">
+                {{ form_row(form.revueValeur,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+            <div class="col-sm-2">
+                {{ form_row(form.volumeLivre,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+            <div class="col-sm-2">
+                {{ form_row(form.serieLivre) }} 
+            </div>
+
+            <div class="col-sm-2">
+                {{ form_row(form.debutPageLivre,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+            <div class="col-sm-2">
+                {{ form_row(form.finPageLivre,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+            <div class="col-sm-4">
+                {{ form_row(form.doi) }} 
+            </div>
+        </div>
+    </fieldset>
+    {% include 'publication/module/auteurNew.html.twig' %}
+    <fieldset >
+        <legend>Informations complémentaires</legend>
+        <div class="row" style=" border-left: 2px solid#9d9d9d; margin-bottom: 15px; ">
+
+            <div class="col-sm-6">
+                {{ form_row(form.entite,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+            <div class="col-sm-6">
+                {{ form_row(form.discipline,{'attr':{'class':'obligatoire'}}) }} 
+            </div>
+
+        </div>
+    </fieldset>     
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+
+
+
+    <script>
+
+        function genereAuteurOption(index) {
+
+            var options = {
+                url: "{{ path('listeAuteurs') }}",
+                getValue: function (element) {
+                    return element.nom;
+                },
+                template: {
+                    type: "custom",
+                    method: function (value, item) {
+                        return value + ' - ' + item.prenoms + ' (' + item.affiliation + ')';
+                    }
+                },
+                list: {
+                    onSelectItemEvent: function () {
+                        var prenom = $("#nomAuteur" + index).getSelectedItemData().prenoms;
+                        $("#prenomAuteur" + index).val($("#nomAuteur" + index).getSelectedItemData().prenoms);
+                        $("#emailAuteur" + index).val($("#nomAuteur" + index).getSelectedItemData().email);
+                        $("#entiteAuteur" + index).val($("#nomAuteur" + index).getSelectedItemData().affiliation);
+
+                        if ($("#prenomAuteur" + index).val()) {
+
+                            $("#prenomAuteur" + index).addClass('disabled');
+                        }
+                    },
+                    match: {
+                        enabled: true
+                    }
+                }
+            };
+
+            return options;
+
+        }
+
+
+
+
+
+        $(document).ready(function () {
+
+            $("#nomAuteur1").easyAutocomplete(genereAuteurOption(1));
+            $("#nomAuteur2").easyAutocomplete(genereAuteurOption(2));
+            $("#nomAuteur3").easyAutocomplete(genereAuteurOption(3));
+            $("#nomAuteur4").easyAutocomplete(genereAuteurOption(4));
+            $("#nomAuteur5").easyAutocomplete(genereAuteurOption(5));
+            $("#nomAuteur6").easyAutocomplete(genereAuteurOption(6));
+            $("#nomAuteur7").easyAutocomplete(genereAuteurOption(7));
+            $("#nomAuteur8").easyAutocomplete(genereAuteurOption(8));
+            $("#nomAuteur9").easyAutocomplete(genereAuteurOption(9));
+            $("#nomAuteur10").easyAutocomplete(genereAuteurOption(10));
+            $("#nomAuteur11").easyAutocomplete(genereAuteurOption(11));
+            $("#nomAuteur12").easyAutocomplete(genereAuteurOption(12));
+
+            var optionstitreFr = {
+                url: "{{ path('listeTitre') }}",
+                getValue: "titre",
+                list: {
+                    match: {
+                        enabled: true
+                    }
+                }
+            };
+
+            var optionsRevue = {
+                url: "{{ path('listeJournal') }}",
+                getValue: "journal",
+                list: {
+                    match: {
+                        enabled: true
+                    }
+                }
+            };
+
+            $("#article_revue").easyAutocomplete(optionsRevue);
+            $("#article_titreFr").easyAutocomplete(optionstitreFr);
+            {#$("#article_titreFr").change(function () {
+
+                $.ajax({
+                    'url': Routing.generate('findTitre', {'titre': $(this).val()}),
+                    'success': function (id) {
+                        if (confirm("L'article a déjà été référencé par un autre auteur , cliquer sur  OK pour enregitrer dans vos articles !") && id) {
+                            document.location.href = Routing.generate('admin_publication_affect', {'id': id, 'type': 'Article'});
+                        }
+                    }
+                })
+            }).blur(function () {
+
+                $.ajax({
+                    'url': Routing.generate('findTitre', {'titre': $(this).val()}),
+                    'success': function (id) {
+                        if (confirm("L'article a déjà été référencé par un autre auteur , cliquer sur  OK pour enregitrer dans vos articles !") && id) {
+                            document.location.href = Routing.generate('admin_publication_affect', {'id': id, 'type': 'Article'});
+                        }
+                    }
+                });
+            });
+
+
+
+            $("#article_motCle").blur(function () {
+
+                $.ajax({
+                    'url': Routing.generate('findTitre', {'titre': $("#article_titreFr").val()}),
+                    'success': function (id) {
+                        if (confirm("L'article a déjà été référencé par un autre auteur , cliquer sur  OK pour enregitrer dans vos articles !") && id) {
+                            document.location.href = Routing.generate('admin_publication_affect', {'id': id, 'type': 'Article'});
+                        }
+                    }
+                });
+            });
+
+
+            $("#article_revue").blur(function () {
+
+                $.ajax({
+                    'url': Routing.generate('findTitre', {'titre': $("#article_titreFr").val()}),
+                    'success': function (id) {
+                        if (confirm("L'article a déjà été référencé par un autre auteur , cliquer sur  OK pour enregitrer dans vos articles !") && id) {
+                            document.location.href = Routing.generate('admin_publication_affect', {'id': id, 'type': 'Article'});
+                        }
+                    }
+                });
+            });
+#}
+
+        });
+
+        $(".supprimer_auteur").each(function (index, elt) {
+
+            // Ajouté par Ignace AZONHOUMON 19/07/2017
+            if(index != 0){
+                $(elt).click(function () {
+                    // Enlever le parent qui est la rangée d'auteur
+                    $(elt).closest('.auteur').remove();
+                });
+            }
+            // FIN
+
+
+        });
+    </script>
+
+
+
+
+{% endblock %}
+
+

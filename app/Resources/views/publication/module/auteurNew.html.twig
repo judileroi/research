@@ -1,0 +1,130 @@
+<fieldset>
+    <legend>Les auteurs et Co-Auteurs</legend>
+
+
+    {#{% set list=[1,2,3,4,5,6,7,8,9,10,11,12] %}#}
+    {#{% set listOrdre=[1,2,3,4,5,6,7,8,9,10] %}#}
+
+    <h3 style="text-align: center">Auteur n° de la publication </h3>
+
+    <div id="zoneauteur">
+        <div style="color: #7D7878; border-left: 2px solid#9d9d9d; margin-bottom: 15px; " class="row auteur">
+            {# Ajouté par Ignace AZONHOUMON 19/07/2017 #}
+            <div class="col-sm-12">
+                <button class="btn btn-danger pull-right btn-group-sm supprimer_auteur" type="button" title="Supprimer l'auteur"
+                        style="color: #FFF"> X
+                </button>
+            </div>
+            {# FIN #}
+
+            <div class="col-sm-4 form-group">
+                <label>Nom(*)</label>
+                <input type="text" name="nomAuteur[]" id="nomAuteur1" value=""
+                       class="form-control nomAuteur obligatoire ">
+            </div>
+
+            <div class="col-sm-4 form-group">
+                <label>Prenom(*)</label>
+
+                <input type="text" name="prenomAuteur[]" id="prenomAuteur1" value=""
+                       class="form-control prenomAuteur obligatoire">
+            </div>
+
+
+            <div class="col-sm-4 form-group">
+                <label>Email</label>
+
+                <input type="text" name="emailAuteur[]" id="emailAuteur1" value="" class="form-control emailAuteur">
+            </div>
+
+            <div class="col-sm-8 form-group">
+                <label>Entité d'affiliation(*)</label>
+                <input type="text" name="entiteAuteur[]" id="entiteAuteur1" value=""
+                       class="form-control obligatoire entiteAuteur">
+            </div>
+
+            <div class="col-sm-2 form-group">
+                <label>Type(*)</label>
+
+                <select name="typeAuteur[]" class="form-control obligatoire">
+                    <option value="">---</option>
+
+                    <option value="1">Auteur, co-auteur</option>
+                    <option value="2">Critical editor</option>
+                    <option value="3">Traducteur</option>
+                    <option value="4">Autre Collaborateur</option>
+                </select>
+            </div>
+
+            <div class="col-sm-2 form-group">
+                <label>Ordre(*)</label>
+
+                <select name="ordreAuteur[]" class="form-control obligatoire ordreAuteur">
+                    <option value="">---</option>
+
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+
+
+                </select>
+            </div>
+
+
+        </div>
+
+    </div>
+    <button type="button" id="addauteur" class="btn btn-primary" style="color: #FFF"><i
+                class="glyphicon glyphicon-plus-sign"></i> Ajouter un Co-auteur
+    </button>
+
+</fieldset>
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+        $("#nomAuteur1").easyAutocomplete(genereAuteurOption(1));
+
+
+        var optionstitreFr = {
+            url: "{{ path('listeTitre') }}",
+            getValue: "titre",
+            list: {
+                match: {
+                    enabled: true
+                }
+            }
+        };
+
+        var optionsRevue = {
+            url: "{{ path('listeJournal') }}",
+            getValue: "journal",
+            list: {
+                match: {
+                    enabled: true
+                }
+            }
+        };
+
+        $("#article_revue").easyAutocomplete(optionsRevue);
+
+        $("#article_titreFr").easyAutocomplete(optionstitreFr);
+
+        $("#livre_titreFr").easyAutocomplete(optionstitreFr);
+
+        $("#poster_titreFr").easyAutocomplete(optionstitreFr);
+        $("#projet_titreFr").easyAutocomplete(optionstitreFr);
+        $("#communication_titreFr").easyAutocomplete(optionstitreFr);
+        $("#brevet_titreFr").easyAutocomplete(optionstitreFr);
+
+
+    });
+
+
+</script>

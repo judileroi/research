@@ -1,0 +1,5 @@
+{# empty Twig template #}
+{% for ligneaut in publication.ligneauteurs %}
+
+    <a href="{{ path('auteur_by_list_ALL', { 'id': ligneaut.auteur.id}) }}"> {{ ligneaut.auteur.nom|upper }} {{ ligneaut.auteur.prenoms|upper }} [{{ ligneaut.ordre }}]</a>, 
+{%endfor%}

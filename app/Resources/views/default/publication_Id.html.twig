@@ -1,0 +1,132 @@
+{% extends 'layout.html.twig' %}
+
+
+
+{% block body %}
+    <h1>Publications Scientifiques</h1>
+
+    <h1 class="noborder text-bold text-warning ">
+        {{ publication.titreFr }}
+    </h1>
+    <div class="well">
+        <table class="table table-bordered">
+            <tbody>
+
+            <tr>
+                <th><img style="border-radius: 35px; margin-left: 20px;"
+                         src=" {% if publication.user.avatar %} {{ asset('uploads/avatar/' ~  publication.user.avatar) }} {% else %} {{ asset('images/person-flat.png') }} {% endif %}"><br>
+                </th>
+                <td>
+                    <a href="{{ path('auteur_by_list', { 'id': publication.user.id}) }}">  {{ publication.user.nom ~' '~ publication.user.prenom }}</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Date de soumission:</th>
+                <td>{{ publication.date|date('d-m-Y') }}</td>
+            </tr>
+
+            <tr>
+                <th>Entité/Laboratoire</th>
+                <td>{{ publication.user.entite.designation }}</td>
+            </tr>
+
+            <tr>
+                <th>Document type :</th>
+                <td>{{ publication.type }}</td>
+            </tr>
+            <tr>
+                <th>Discipline(s) :</th>
+                <td>{{ publication.discipline.designation }}</td>
+            </tr>
+            <tr>
+                <th>Revue:</th>
+                <td>{{ publication.revue.designation }}</td>
+            </tr>
+
+            <tr>
+                <th>Lien de référence:</th>
+                <td><a href="{{ publication.lienInternet }}">{{ publication.lienInternet }}</a></td>
+            </tr>
+            <tr>
+                <th>Projet de Fiancement</th>
+                <td>{{ publication.financement }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="well">
+        <table class="table table-bordered">
+            <tbody>
+
+            <tr>
+                <th>Titre [francais]</th>
+                <td>{{ publication.titreFr }}</td>
+            </tr>
+            <tr>
+                <th>Titre [anglais]</th>
+                <td>{{ publication.titreEn }}</td>
+            </tr>
+            <tr>
+                <th>Auteurs</th>
+                <td>
+                    {% for ligneaut in publication.ligneauteurs %}
+
+                        <a href="{{ path('auteur_by_list', { 'id': ligneaut.auteur.id}) }}"> {{ ligneaut.auteur.nom }} {{ ligneaut.auteur.prenoms }}
+                            [{{ ligneaut.ordre }}]</a>,
+                    {% endfor %}
+
+
+                </td>
+            </tr>
+
+            <tr>
+                <th>Resume</th>
+                <td>{{ publication.resume }}</td>
+            </tr>
+            <tr>
+                <th>Abstract</th>
+                <td>{{ publication.abstract }}</td>
+            </tr>
+            <tr>
+                <th>Mots clés</th>
+                <td>{{ publication.motCle }}</td>
+            </tr>
+            <tr>
+                <th>Keywords</th>
+                <td>{{ publication.keyWords }}</td>
+            </tr>
+            <tr>
+                <th>Nombredepage</th>
+                <td>{{ publication.nombreDePage }}</td>
+            </tr>
+            <tr>
+                <th>Editionrevue</th>
+                <td>{{ publication.editionRevue }}</td>
+            </tr>
+
+
+            <tr>
+                <th>Cibles</th>
+                <td>{{ publication.cibles }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ publication.commentaire }}</td>
+            </tr>
+            <tr>
+                <th>Fichier</th>
+                <td><a href="{{ asset('uploads/publication/' ~ publication.fichier) }}"><img
+                                src="{{ asset('images/pdflogo.png') }}" height="16"/>(PDF)</a></td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+{% endblock %}

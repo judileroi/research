@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: becAdmin
+    database_user: becAdmin
+    database_password: MyDbadmin
+    mailer_transport: smtp
+    mailer_host: smtp.uac.bj
+    mailer_user: bec
+    mailer_password: bec20162017
+    #mailer_port: 465
+    #mailer_encryption: ssl
+    secret: ThisTokenIsNotSoSecretChangeIt

@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    <h3 > Par Type de publications         </h3>
+
+    <ul>
+        {% for type in types%}
+
+            <h4 class="noborder">           
+                
+                <li> <a href="{{ path('type_by_list', { 'id': type.id }) }}">{{type.designation}}  [{{ render(controller('AppBundle:Default:byTypeCount', { 'id': type.designation })) }}]</a></li>
+            </h4>
+
+
+
+
+
+
+
+
+
+        {%endfor %}
+    </ul>
+{% endblock %}
+
+

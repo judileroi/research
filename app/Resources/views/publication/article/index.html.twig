@@ -1,0 +1,61 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    {% include 'publication/menuAdd.html.twig' %}
+
+    <h1><i class="glyphicon glyphicon-list"></i> Liste de vos articles</h1>
+
+    <table class="table table-bordered table-striped tableP">
+
+        <thead>
+            <tr>             
+                <th>Date publication</th>
+
+                <th>Titre</th>
+                <th>Journal</th>
+                <th>Auteurs</th>
+                <th>Volume</th>  
+                <th>Pages</th>
+
+                <th>Fichier</th>
+
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publication in publications  %}
+                    {% if publication.type=='Article' %}
+                <tr>        
+                    <td>{{ publication.datePubli }}</td>
+
+                    <td><a href="{{ path('admin_publication_edit', { 'id': publication.id, 'type': 'Article' }) }}" title="Modifier">{{ publication.titreFr }}</a></td>
+                    <td>{{ publication.revue }}</td>
+                    <td>{{ publication.auteur }}
+                        {% for ligneaut in publication.ligneauteurs %}
+
+                            <a href="#">  {{ ligneaut.auteur.nom }} {{ ligneaut.auteur.prenoms }} [{{ ligneaut.ordre }}]</a>, 
+                        {%endfor%}
+
+                    </td>
+                    <td>{{ publication.volumeLivre }}</td>
+                    <td>{{ publication.debutPageLivre }}-{{ publication.finPageLivre }}</td>
+
+                    <td>{% if publication.fichier %} <a href="{{ asset('uploads/publication/' ~ publication.fichier) }}"><img src="{{ asset('images/pdflogo.png')}}" height="16" />(PDF)</a> {%else %} <ul class="nav nav-pills"> <li><a href="{{ path('admin_publication_file', { 'id': publication.id, 'type': 'Article' }) }}" title="Joindre"><i class="glyphicon glyphicon-link"></i> </a> </li></ul>{% endif %}</td>
+
+                    <td>
+                        <ul class="nav nav-pills">
+
+                            <li>
+                                <a href="{{ path('admin_publication_edit', { 'id': publication.id, 'type': 'Article' }) }}" title="Modifier"><i class="glyphicon glyphicon-edit"  ></i></a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                {%endif%}
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

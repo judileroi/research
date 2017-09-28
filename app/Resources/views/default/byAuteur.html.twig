@@ -1,0 +1,44 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    <h3 > Par Auteur de publication        </h3>
+    <ul>
+{#        {% set etat=O %}
+#}        {% for aut in auteurs%}
+
+{#            {% for role in aut.roles%}
+
+                {% if role =='ROLE_ADMIN' %}
+                    {% set etat=1 %}
+
+                {% endif%}
+
+
+            {%endfor %}#}
+
+{#            {% if etat ==0 %}
+#}      
+
+{% set nbpub= aut.ligneauteurs|length %}
+
+
+
+<li> <a href="{{ path('auteur_by_list', { 'id': aut.id}) }}">{{aut.nom ~' '~aut.prenoms}}</a> , {{aut.affiliation}} [ {{ nbpub }} publications]
+
+{#                    {% set etat=0 %}
+
+                {% endif%}#}
+
+
+                {#            {% if aut.publications|length !=0 %}#}
+                {#    {% endif%}#}
+
+
+            {%endfor %}
+    </ul>
+
+
+{% endblock %}
+
+

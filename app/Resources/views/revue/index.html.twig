@@ -1,0 +1,57 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des revues scientifiques</h1>
+    <ul class="nav nav-pills ">
+        <li>
+            <a href="{{ path('admin_revue_new') }}"><i class="glyphicon glyphicon-plus-sign"  ></i> Nouvelle revue scientifique</a>
+        </li>
+    </ul>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nom de la revue</th>
+                <th>Cote</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for revue in revues %}
+                <tr>
+                    <td> <a href="{{ path('admin_revue_edit', { 'id': revue.id }) }}"  title="Modifier" >{{ revue.designation }}</a></td>
+                    <td>{{ revue.cote }}</td>
+                    <td>
+                        <ul class="nav nav-pills">
+                            <li>
+                                <a href="{{ path('admin_revue_edit', { 'id': revue.id }) }}" title="Modifier"><i class="glyphicon glyphicon-edit"  ></i></a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
+        
+    <ul>
+        {% for revue in revues%}
+
+            <h4 class="noborder"> {{entite.designation}}            </h4>
+
+
+            <ul>
+
+                {% for entit in entite.enfants%}
+
+                    <li> <a href="{{ path('entite_by_list', { 'id': entit.id }) }}">{{entit.designation}} [{{entit.publications|length}}]</a></li>
+
+                    {%endfor %}
+
+
+            </ul>
+
+
+        {%endfor %}
+    </ul>
+
+{% endblock %}

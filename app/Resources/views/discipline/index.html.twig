@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des disciplines scientifiques</h1>
+    <ul class="nav nav-pills ">
+        <li>
+            <a href="{{ path('admin_discipline_new') }}"><i class="glyphicon glyphicon-plus-sign"  ></i> Nouvelle discipline scientifique</a>
+        </li>
+    </ul>
+        
+        
+    <ul>
+        {% for discipline in disciplines%}
+
+            <h4 class="noborder"> <a href="{{ path('admin_discipline_edit', { 'id': discipline.id }) }}" title="Modifier">{{discipline.designation}} </a>           </h4>
+
+
+                <ul>
+
+                    {% for disc in discipline.enfants%}
+
+                        <li> <a href="{{ path('admin_discipline_edit', { 'id': disc.id }) }}" title="Modifier">{{disc.designation}} [{{disc.publications|length}}]</a></li>
+
+                        {%endfor %}
+
+
+                </ul>
+
+
+        {%endfor %}
+    </ul>
+
+{% endblock %}

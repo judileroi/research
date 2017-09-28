@@ -1,0 +1,66 @@
+<h3>Publications par entité</h3>
+{% set sum=0 %}
+
+<ul>
+    {% for entite in entites %}
+        {% set i=0 %}
+
+        {% for ent in entite.enfants %}
+            {% set i=i+ent.publications|length%}
+
+
+        {%endfor %}
+        {% set sum=sum+i %}
+        <li style="color: #7D7878"> {{entite.designation}} <span style="color: #db1e1e; font-weight: bold">({{ i }}) </span> </li>	
+
+    {% endfor %} 
+
+
+</ul>
+
+
+<h3>Publications par sexe </h3>
+
+<ul>
+    <li><a href="#">Femme( 
+            {% set i=0 %}
+
+            {% for publication in publications %}
+
+                {% for user in publication.user %}
+                    {% if user.sexe=='F'  %}
+                        {% set i=i+1%}
+                    {%endif %}
+                {% endfor %}
+
+            {% endfor %}
+
+            {{i}}
+            ) </a></li>	
+    <li><a href="#">Homme (
+
+            {% set j=0 %}
+
+            {% for publication in publications %}
+                {% for user in publication.user %}
+
+                    {% if user.sexe=='M'  %}
+                        {% set j=j+1%}
+                    {%endif %}
+                {% endfor %}
+
+            {% endfor %}
+
+            {{j}}
+
+            ) </a></li>
+
+</ul>
+
+<h3>Publications Globales </h3>
+
+<ul>
+    <li><a href="#">Total publications({{ i+j }}) </a></li>	
+
+</ul>
+

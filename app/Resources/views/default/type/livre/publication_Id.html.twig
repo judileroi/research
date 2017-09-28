@@ -1,0 +1,102 @@
+{% extends 'layout.html.twig' %}
+
+
+
+{% block body %}
+    <h1>Publications Scientifiques</h1>
+
+    <h1 class="noborder text-bold text-warning ">
+        [ Livre ] {{ publication.titreFr }}
+    </h1>
+    <div class="well">
+        <table class="table table-bordered">
+            <tbody>
+                {#<tr>#}
+                    {#<th>                    <img style="border-radius: 35px; margin-left: 20px; width: 100px" src=" {% if  publication.user.avatar %} {{ asset('uploads/avatar/' ~  publication.user.avatar) }} {%else%} {{ asset('images/person-flat.png') }} {%endif%}"><br>#}
+                    {#</th>#}
+                    {#<td>                    <a href="{{ path('auteur_by_list', { 'id': publication.user.id}) }}">  {{ publication.user.nom ~' '~ publication.user.prenom }}</a></td>#}
+                {#</tr>#}
+                <tr>
+                    <th>Date de soumission:</th>
+                    <td>{{ publication.date|date('d-m-Y') }}</td>
+                </tr>
+                <tr>
+                    <th>Année de Publication:</th>
+                    <td>{{ publication.datePubli }}</td>
+                </tr>
+
+                <tr>
+                    <th>Entité/Laboratoire</th>
+                    <td>{{ publication.entite.designation }}</td>
+                </tr>
+
+                <tr>
+                    <th>Document type :</th>
+                    <td>{{ publication.type }}</td>
+                </tr>
+                <tr>
+                    <th>Discipline(s) :</th>
+                    <td>{{ publication.discipline.designation }}</td>
+                </tr>
+
+            </tbody>
+        </table>  
+
+    </div>
+
+    <div class="well">
+        <table class="table table-bordered">
+            <tbody>
+
+                <tr>
+                    <th>Titre </th>
+                    <td>{{ publication.titreFr }}</td>
+                </tr>
+
+                <tr>
+                    <th>Auteurs</th>
+                    <td>                   
+                        {% for ligneaut in publication.ligneauteurs %}
+
+                        <a href="{{ path('auteur_by_list', { 'id': ligneaut.auteur.id}) }}"> {{ ligneaut.auteur.nom }} {{ ligneaut.auteur.prenoms }} [{{ ligneaut.ordre }}]</a>, 
+                        {%endfor%}</td>
+                    </tr>  
+
+                    <tr>
+                        <th>Editeur:</th>
+                        <td>{{ publication.editor }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Edition:</th>
+                        <td>{{ publication.edition }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>ISBN:</th>
+                        <td>{{ publication.isbn }}</td>
+                    </tr>
+                    <tr>
+                        <th>DOI:</th>
+                        <td>{{ publication.doi }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Resume</th>
+                        <td>{{ publication.resume }}</td>
+                    </tr>
+
+
+                    <tr>
+                        <th>Fichier</th>
+                        <td>{% if publication.fichier %}<a  href="{{ asset('uploads/publication/' ~ publication.fichier) }}"><img src="{{ asset('images/pdflogo.png')}}" height="16" />(PDF)</a>{% endif %}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+        </div>
+
+
+        {% endblock %}

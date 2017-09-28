@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    {% include 'publication/menuAdd.html.twig' %}
+
+    <h1>Joindre un Fichier à la publication</h1>
+
+    {{ form_start(edit_form) }}
+
+
+
+    {{ form_widget(edit_form) }}
+
+    {{ form_end(edit_form) }}
+
+
+{% endblock %}

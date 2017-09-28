@@ -1,0 +1,47 @@
+{% extends 'layout.html.twig' %}
+
+
+
+
+{% block body %}
+
+
+    <h1>Liste des Publications[ {{ auteur.nom }} {{ auteur.prenoms }}]</h1>
+
+
+    <div class="list-group">
+        {% for ligneauth in ligneauteurs %}
+
+
+            <div  class="list-group-item">
+                {#                                <p class="list-group-item-text" style="float: right">
+                                    <img style="border-radius: 35px;width: 50px; margin-left: 20px;" src=" {% if  publication.user.avatar %} {{ asset('uploads/avatar/' ~  publication.user.avatar) }} {%else%} {{ asset('images/person-flat.png') }} {%endif%}"><br>
+                
+                                    <a href="{{ path('auteur_by_list', { 'id': ligneauteurs.publication.user.id}) }}">  {{ ligneauteurs.publication.user.nom ~' '~ ligneauteurs.auteur.user.prenom }}</a>
+                                </p>#}
+                <h4 class="list-group-item-heading noborder"><a href="{{ path('publication_id', { 'id': ligneauth.publication.id ,'type':ligneauth.publication.type}) }}">{{ ligneauth.publication.titreFr }} </a>    </h4>
+                <p class="list-group-item-text">
+
+                    {% for ligneaut in ligneauth.publication.ligneauteurs %}
+
+                        <a href="{{ path('auteur_by_list_ALL', { 'id': ligneaut.auteur.id}) }}"> {{ ligneaut.auteur.nom }} {{ ligneaut.auteur.prenoms }} [{{ ligneaut.ordre }}]</a>, 
+                    {%endfor%}
+
+                </p>
+                <p class="list-group-item-text">{{ ligneauth.publication.resume|slice(0, 150)}} <a href="{{ path('publication_id', { 'id': ligneauth.publication.id ,'type':ligneauth.publication.type}) }}">[...] </a></p>
+                <p class="list-group-item-text">{{ ligneauth.publication.type }}, Ajoutée le  {{ ligneauth.publication.date|date('d/m/Y H:i') }} </p>
+
+            </div>         
+
+        {% endfor %}
+
+        <div class="navigation">
+            {{ knp_pagination_render(ligneauteurs) }}
+        </div>
+
+    </div>     
+
+
+
+
+{% endblock %}

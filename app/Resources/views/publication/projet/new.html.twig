@@ -1,0 +1,82 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    {% include 'publication/menuAdd.html.twig' %}
+
+    <h1>Soumission d'un projet</h1>
+
+    {{ form_start(form) }}
+
+
+
+    <fieldset >
+        <legend>Détails sur le Projet</legend>
+        <div class="col-sm-12">
+            {{ form_row(form.titreFr) }} 
+        </div>
+        
+        <div class="col-sm-6">
+            {{ form_row(form.resume) }} 
+        </div> 
+
+        <div class="col-sm-6">
+            {{ form_row(form.montant) }} 
+        </div>
+        <div class="col-sm-3">
+            {{ form_row(form.datePubli) }} 
+        </div>  
+
+        <div class="col-sm-3">
+            {{ form_row(form.dureeProjet) }} 
+        </div>  
+        <div class="col-sm-6">
+            {{ form_row(form.financeProjet) }} 
+        </div>  
+    </fieldset>
+        
+    <fieldset>
+            {% include 'publication/module/projetNew.html.twig' %}
+    </fieldset>
+
+    <fieldset >
+        <legend>Informations complémentaires</legend>
+        <div class="col-sm-6">
+            {{ form_row(form.entite) }} 
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_row(form.discipline) }} 
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_row(form.fichier) }} 
+        </div>
+
+
+
+
+
+    </fieldset>     
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+
+    <script>
+        $(".supprimer_auteur").each(function (index, elt) {
+
+            // Ajouté par Ignace AZONHOUMON 19/07/2017
+            if(index != 0){
+                $(elt).click(function () {
+                    // Enlever le parent qui est la rangée d'auteur
+                    $(elt).closest('.auteur').remove();
+                });
+            }
+            // FIN
+
+
+        });
+    </script>
+
+{% endblock %}
+
+

@@ -1,0 +1,73 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    {% include 'publication/menuAdd.html.twig' %}
+
+    <h1>Edition d'un document de vulgarisation</h1>
+
+    {{ form_start(edit_form) }}
+
+
+    <fieldset>
+        <legend>Détails du document de vulgarisation</legend>
+        <div class="col-sm-12">
+            {{ form_row(edit_form.titreFr) }}
+        </div>
+
+
+        <div class="col-sm-6">
+            {{ form_row(edit_form.resume) }}
+        </div>
+
+
+        <div class="col-sm-6">
+            {{ form_row(edit_form.editor) }}
+        </div>
+
+        <div class="col-sm-3">
+            {{ form_row(edit_form.edition) }}
+        </div>
+
+        <div class="col-sm-3">
+            {{ form_row(edit_form.isbn) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(edit_form.doi) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(edit_form.datePubli) }}
+        </div>
+
+
+    </fieldset>
+    <fieldset>
+        {% include 'publication/module/auteurGetName.html.twig' %}
+    </fieldset>
+    <fieldset>
+        <legend>Informations complémentaires</legend>
+        <div class="col-sm-6">
+            {{ form_row(edit_form.entite) }}
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_row(edit_form.discipline) }}
+        </div>
+
+    </fieldset>
+
+    {{ form_widget(edit_form) }}
+
+    {{ form_end(edit_form) }}
+
+    <ul class="nav navbar-right">
+
+        <li>
+            {{ form_start(delete_form) }}
+
+            <button type="button" class="btn text-danger btn-toolbar  " onclick="if (confirm('Etes vous sûr de vouloir effectuer cette action ?'))
+                        document.form.submit();"><span class="text-danger text-bold text-uppercase"><i
+                            class="glyphicon glyphicon-erase "></i> Supprimer</span></button>
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

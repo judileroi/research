@@ -1,0 +1,97 @@
+<?php
+
+// src/AppBundle/Entity/User.php
+
+namespace AppBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
+class User extends BaseUser {
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255,nullable=true)
+     * @Assert\NotBlank(message="Le champ nom ne peut être vide ! .")
+
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenoms", type="string", length=255,nullable=true)
+     * @Assert\NotBlank(message="Le champ prenom ne peut être vide ! .")
+
+     * 
+     */
+    private $prenom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=255,nullable=true)
+     * @Assert\NotBlank(message="Le champ titre ne peut être vide ! .")
+
+     */
+    private $titre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sexe", type="string", length=1,nullable=true)
+     * @Assert\NotBlank(message="Le champ sexe ne peut être vide ! .")
+
+     */
+    private $sexe;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telephone", type="integer")
+     * @Assert\NotBlank(message="Le champ telephone ne peut être vide ! .")
+
+     */
+    private $telephone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar", type="text",nullable=true)
+     * @Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 1000,
+     *     minHeight = 200,
+     *     maxHeight = 1000
+     * )
+     */
+    private $avatar;
+
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Publication",mappedBy="user")
+     */
+    private $publications;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="entite", inversedBy="users", cascade={"remove","persist"})
+     */
+    private $entites;
+
+   
+
+}

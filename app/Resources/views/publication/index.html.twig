@@ -1,0 +1,53 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des Publications Scientifiques</h1>
+    <ul class="nav nav-pills nav-divider" >
+        <li><a href="{{ path('admin_publication_article_new') }}"><i class="glyphicon glyphicon-plus-sign"></i> Article</a></li>	
+        <li><a href="{{ path('admin_publication_livre_new') }}"><i class="glyphicon glyphicon-plus-sign"></i> Livre</a></li>	
+        <li><a href="{{ path('admin_publication_poster_new') }}"><i class="glyphicon glyphicon-plus-sign"></i> Poster</a></li>	
+        <li><a href="{{ path('admin_publication_communication_new') }}"><i class="glyphicon glyphicon-plus-sign"></i> Communication</a></li>	
+        <li><a href="{{ path('admin_publication_projet_new') }}"><i class="glyphicon glyphicon-plus-sign"></i> Projet</a></li>
+
+    </ul>
+    <table class="table table-bordered table-striped">
+
+            <thead>
+                <tr>             
+                    <th>Date</th>
+
+                    <th>Titre [fr]</th>
+                    <th>Année de Publication</th>
+                    <th>Financement</th>
+                    <th>Auteur</th>                   
+                    <th>Fichier</th>
+
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for publication in publications %}
+                    <tr>        
+                        <td>{{ publication.date|date('d/m/Y')  }}</td>
+
+                        <td><a href="{{ path('admin_publication_edit', { 'id': publication.id }) }}" title="Modifier">{{ publication.titreFr }}</a></td>
+                        <td>{{ publication.annee }}</td>
+                        <td>{{ publication.financement }}</td>
+                        <td>{{ publication.auteur }}</td>
+                        <td><a href="{{ asset('uploads/publication/' ~ publication.fichier) }}"><img src="{{ asset('images/pdflogo.png')}}" height="16" />(PDF)</a></td>
+
+                        <td>
+                            <ul class="nav nav-pills">
+
+                                <li>
+                                    <a href="{{ path('admin_publication_edit', { 'id': publication.id }) }}" title="Modifier"><i class="glyphicon glyphicon-edit"  ></i></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    {% endblock %}

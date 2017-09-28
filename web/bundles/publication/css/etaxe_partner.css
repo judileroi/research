@@ -1,0 +1,140 @@
+body {
+    background-color: #e0e0e0;
+}
+
+.backimage {
+    background: url('../images/handshake.png') no-repeat 0px 0px;
+    min-height: 720px;
+    background-size: cover;
+}
+
+@media (max-width: 765px) {
+    .brand {
+        margin-top: -22px !important;
+        width: 70% !important;
+    }
+}
+
+.input-search {
+    height: 50px !important;
+    padding: 6px 15px 6px 15px !important;
+    font-size: 17px !important;
+    font-weight: lighter !important;
+    text-align: center;
+}
+
+.search-body {
+    padding: 5px 25px 10px 25px;
+}
+
+.red {
+    color: red !important;
+    font-weight: bold !important;
+}
+.blueBG{
+    color: #006699;
+    font-weight: bold !important;
+}
+
+.blue{
+    color: #006699;
+    /*font-weight: lighter !important;*/
+}
+.blue:hover{
+    font-weight: bold;
+}
+.menu_a {
+    color: #fff !important;
+}
+
+.menu_a:focus,
+.menu_a:hover,
+.menu_a:active {
+    color: #000 !important;
+
+}
+
+.banner-form form input[type="text"] {
+    width: 25%;
+    padding: 12px 14px;
+    border: 1px solid #fff;
+    font-size: 1.2em;
+    color: #fff;
+    outline: none;
+    font-weight: 400;
+    display: inline-block;
+    background: transparent;
+    border-left: 3px solid #327808;
+    border-radius: 3px;
+    margin-right: 1em;
+}
+
+.whiteFont {
+    color: #fff !important;
+}
+
+.inner-div {
+    display: inline-block;
+}
+
+.outerdiv {
+    padding: 30px;
+}
+
+.innerdiv {
+    margin: auto;
+    width: 100px;
+    height: 100px;
+}
+
+.bold_text {
+    font-weight: bolder !important;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.footer {
+    background: #012545;
+    padding: 0.5em;
+    text-align: center;
+    height: auto !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.menu_content {
+    text-align: center;
+    border-left: 1px solid #a6c647;
+    width: 165px;
+    height: 85px;
+}
+
+.row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+}
+
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+    content: "";
+}
+
+.activebread {
+    color: #327808;
+    font-weight: bold;
+}
+
+.center {
+    text-align: center !important;
+}

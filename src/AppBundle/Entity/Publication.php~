@@ -1,0 +1,265 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+/**
+ * Publication
+ *
+ * @ORM\Table(name="publication")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PublicationRepository")
+ * @UniqueEntity("titreFr") // c'est ici que je declare le champs unique
+ */
+class Publication {
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titreFr", type="string", length=255,nullable=true,unique=true)
+     * @Assert\NotBlank(message="Le champ titre ne peut être vide ! .")
+
+     */
+    private $titreFr;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motCle", type="text", length=255,nullable=true)
+
+     */
+    private $motCle;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="resume", type="text",nullable=true)
+     */
+    private $resume;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="doi", type="string",nullable=true)
+     */
+    private $doi;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conference", type="string",nullable=true)
+     */
+    private $conference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lieuConference", type="string",nullable=true)
+     */
+    private $lieuConference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="affiliation", type="string",nullable=true)
+     */
+    private $affiliation;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="volumeConference", type="integer",nullable=true)
+     */
+    private $volumeConference;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="volumeLivre", type="integer",nullable=true)
+
+     */
+    private $volumeLivre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="serieLivre", type="string",nullable=true)
+
+     */
+    private $serieLivre;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="debutPageLivre", type="integer",nullable=true)
+
+     */
+    private $debutPageLivre;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="finPageLivre", type="integer",nullable=true)
+
+     */
+    private $finPageLivre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="publisher", type="string",nullable=true)
+     */
+    private $publisher;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="editor", type="string",nullable=true)
+     */
+    private $editor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="edition", type="string",nullable=true)
+     */
+    private $edition;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="montant", type="integer",nullable=true)
+     */
+    private $montant;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="isbn", type="string",nullable=true)
+
+     */
+    private $isbn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="datePubli", type="string",nullable=true)
+     */
+    private $datePubli;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="text",nullable=true)
+     */
+    private $commentaire;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fichier", type="text",nullable=true)
+     * @Assert\File(groups={"fichier"},mimeTypes={ "application/pdf" })
+     * @Assert\NotBlank(groups={"fichier"},message="Le fichier à joindre  ne peut être vide ! .")
+     */
+    private $fichier;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="auteur", type="text",nullable=true)
+     * 
+     */
+    private $auteur;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="revue", type="string",nullable=true)
+     */
+    private $revue;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="revueCategorie", type="string",nullable=true)
+
+     */
+    private $revueCategorie;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="revueQualite", type="string",nullable=true)
+
+     */
+    private $revueQualite;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="revueValeur", type="float",nullable=true)
+     */
+    private $revueValeur = 0;
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="LigneAuteur",mappedBy="publication", cascade={"remove","persist"})
+     */
+    private $ligneauteurs;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="dureeProjet", type="integer",nullable=true)
+     */
+    private $dureeProjet = 0;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="financeProjet", type="string",nullable=true)
+     */
+    private $financeProjet ;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string",nullable=true)
+     */
+    private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Discipline",inversedBy="publications")
+     * @ORM\JoinColumn(name="discipline_id", referencedColumnName="id", nullable=true)
+     */
+    private $discipline;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User",inversedBy="publications")
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="entite",inversedBy="publications")
+     */
+    private $entite;
+
+    
+}

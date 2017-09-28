@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    {% include 'publication/menuAdd.html.twig' %}
+
+    <h1><i class="glyphicon glyphicon-list"></i> Liste de vos brevets</h1>
+
+  <table class="table table-bordered table-striped tableP">
+
+            <thead>
+                <tr>             
+                    <th>Date publication</th>
+
+                    <th>Titre</th>
+                    <th>Auteurs</th>
+                    <th>Montant</th>  
+                    <th>Fichier</th>
+
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for publication in publications %}
+                    {% if publication.type=='Brevet' %}
+
+                    <tr>        
+                        <td>{{ publication.datePubli  }}</td>
+
+                        <td><a href="{{ path('admin_publication_edit', { 'id': publication.id, 'type': 'Brevet' }) }}" title="Modifier">{{ publication.titreFr }}</a></td>
+                        <td>{{ publication.auteur }}</td>
+                        <td>{{ publication.montant }}</td>
+                        <td>{% if publication.fichier %} <a href="{{ asset('uploads/publication/' ~ publication.fichier) }}"><img src="{{ asset('images/pdflogo.png')}}" height="16" />(PDF)</a> {%else %} <ul class="nav nav-pills"> <li><a href="{{ path('admin_publication_file', { 'id': publication.id, 'type': 'Brevet' }) }}" title="Joindre"><i class="glyphicon glyphicon-link"></i> </a> </li></ul>{% endif %}</td>
+
+                        <td>
+                            <ul class="nav nav-pills">
+
+                                <li>
+                                    <a href="{{ path('admin_publication_edit', { 'id': publication.id, 'type': 'Brevet' }) }}" title="Modifier"><i class="glyphicon glyphicon-edit"  ></i></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {%endif%}
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    {% endblock %}

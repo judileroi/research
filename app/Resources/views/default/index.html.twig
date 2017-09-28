@@ -1,0 +1,50 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    <h1>Dernières Publications Scientifiques</h1>
+
+    <div class="list-group">
+        {% for publication in publications %}
+
+
+            <div  class="list-group-item">
+                <p class="list-group-item-text" style="float: right">
+                    {% if  is_granted('ROLE_ADMIN') %}
+
+                        <a href="{{ path('admin_publication_edit', { 'id': publication.id, 'type': publication.type }) }}" title="Modifier"><i class="glyphicon glyphicon-edit"  ></i></a>
+                        {%endif%}
+{#                    <a href="{{ path('auteur_by_list', { 'id': publication.user.id}) }}">  {{ publication.user.nom}} <br> {{publication.user.prenom }}</a>
+#}
+                </p>
+
+                <h4 class="list-group-item-heading noborder"><a href="{{ path('publication_id', { 'id': publication.id ,'type':publication.type}) }}">{{ publication.titreFr|upper }} </a>    </h4>
+
+
+                <p class="list-group-item-text">{{ publication.auteur }}</p>
+
+                <p class="list-group-item-text" style="font-size: 10px;">               
+                    {% include 'publication/module/auteurListId.html.twig' %}
+
+                </p>
+
+
+                <p class="list-group-item-text">{{ publication.resume|slice(0, 150)}} <a href="{{ path('publication_id', { 'id': publication.id ,'type':publication.type}) }}">[...] </a></p>
+                <p class="list-group-item-text">{{ publication.type }}, Ajoutée le  {{ publication.date|date('d/m/Y H:i') }} </p>
+
+            </div>         
+
+        {% endfor %}
+
+        <div class="navigation">
+            {{ knp_pagination_render(publications) }}
+        </div>
+
+    </div>     
+
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
